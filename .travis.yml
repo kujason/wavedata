@@ -1,0 +1,24 @@
+dist: trusty
+sudo: required
+group: edge
+
+language: python
+
+python:
+    - "3.5"
+
+cache: pip
+
+install:
+    # build c++ lib
+    - sudo apt-get install cmake
+    - sudo bash scripts/build_integral_image_lib.bash
+
+    # install python dependencies
+    - pip install -r requirements.txt
+
+script:
+    - python -m unittest discover -b --pattern "*_test.py"
+
+notifications:
+    email: false
